@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } fro
 
 interface IChildComponentProps {
   number?: number;
+
   increaseNumber?(): void;
 }
 
@@ -29,7 +30,8 @@ const ChildComponent = ({ number, increaseNumber }: IChildComponentProps) => {
 
   return (
     <div>
-      Child {number} <button onClick={increaseNumber}>increase Number</button>
+      Child {number}
+      <button onClick={increaseNumber}>increase Number</button>
     </div>
   );
 };
@@ -66,8 +68,10 @@ export default function ExampleHooks() {
       {msg} <br />
       {name} <br />
       <b>useMemo: {printMsg}</b> <br />
-      <button onClick={changeStates}>state 변경</button> <br />
-      <button onClick={alertNumber}>alertNumber</button> <br />
+      <button onClick={changeStates}>state 변경</button>
+      <br />
+      <button onClick={alertNumber}>alertNumber</button>
+      <br />
       <ChildComponent number={number} increaseNumber={increaseNumber} />
     </div>
   );
