@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리액트를 사용하지 않는 코드</title>
+</head>
+<body>
+<div class="todo">
+    <h3>할 일</h3>
+    <ul class="list"></ul>
+    <input class="desc" type="text"/>
+    <button onclick="add()">추가</button>
+</div>
+</body>
+</html>
+<script defer>
+    const todoList = [];
+    let todoIdx = 1;
+
+    // todo add
+    function add() {
+        const inputEl = document.querySelector('.todo .desc');
+        const todo = {idx: todoIdx, desc: inputEl.value};
+        todoList.push(todo);
+        todoIdx += 1;
+
+        const todoListEl = document.querySelector('.todo .list');
+        const targetTodoEls = makeTodoEl(todoList);
+        todoListEl.innerHTML = '';
+        todoListEl.appendChild(targetTodoEls);
+    }
+
+    // make element
+    function makeTodoEl(targetTodoList) {
+
+        const docFragment = document.createDocumentFragment();
+        targetTodoList.forEach((todo, index) => {
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            span.innerHTML = todo.desc;
+            li.appendChild(span);
+            docFragment.appendChild(li);
+        });
+
+        return docFragment;
+
+    }
+</script>
