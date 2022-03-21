@@ -3,6 +3,7 @@ import logo from '../logo.svg';
 import './Home.scss'; // scss
 import ExampleClassComponent from '../components/ExampleClassComponent';
 import ExampleFunctionComponent from '../components/ExampleFunctionComponent';
+import ExampleHooks from '../components/ExampleHooks';
 
 export default function Home() {
   const [hello, setHello] = useState('Hello World!');
@@ -21,6 +22,8 @@ export default function Home() {
       <p className='app--hello'>{hello}</p>
       <ExampleClassComponent msg='나는 클래스형 컴포넌트' />
       <ExampleFunctionComponent msg='나는 함수 컴포넌트' />
+      <hr />
+      <ExampleHooks />
     </div>
   );
 }
