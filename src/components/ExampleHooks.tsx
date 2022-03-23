@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { ExampleContext } from '../contexts/ExampleContext';
 
 interface IChildComponentProps {
   number?: number;
-
   increaseNumber?(): void;
 }
 
@@ -73,6 +73,7 @@ export default function ExampleHooks() {
       <button onClick={alertNumber}>alertNumber</button>
       <br />
       <ChildComponent number={number} increaseNumber={increaseNumber} />
+      <ExampleContext.Consumer>{value => <span>{value}</span>}</ExampleContext.Consumer>
     </div>
   );
 }
