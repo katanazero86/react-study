@@ -5,9 +5,13 @@ import ExampleClassComponent from '../components/ExampleClassComponent';
 import ExampleFunctionComponent from '../components/ExampleFunctionComponent';
 import ExampleHooks from '../components/ExampleHooks';
 import { ExampleContext } from '../contexts/ExampleContext';
+import useMounted from '../customs/useMounted';
+import RefComponent from '../components/RefComponent';
 
 export default function Home() {
   const [hello, setHello] = useState('Hello World!');
+  const [providerValue, setProviderValue] = useState<string | undefined>('Hello Provider');
+  const mounted = useMounted();
 
   return (
     <div className='app'>
@@ -24,9 +28,11 @@ export default function Home() {
       <ExampleClassComponent msg='나는 클래스형 컴포넌트' />
       <ExampleFunctionComponent msg='나는 함수 컴포넌트' />
       <hr />
-      <ExampleContext.Provider value={'나는 프로바이더!'}>
+      <ExampleContext.Provider value={{ providerValue, setProviderValue }}>
         <ExampleHooks />
       </ExampleContext.Provider>
+      {mounted && <p>mounted</p>}
+      <RefComponent />
     </div>
   );
 }

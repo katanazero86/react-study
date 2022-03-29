@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { ExampleContext } from '../contexts/ExampleContext';
 
 interface IChildComponentProps {
@@ -36,6 +36,17 @@ const ChildComponent = ({ number, increaseNumber }: IChildComponentProps) => {
   );
 };
 
+const ChildComponent2 = () => {
+  const context = useContext(ExampleContext);
+
+  return (
+    <div>
+      <p>ChildComponent2</p>
+      {context.providerValue}
+    </div>
+  );
+};
+
 export default function ExampleHooks() {
   // useState()
   const [msg, setMsg] = useState<string>('testMsg');
@@ -63,6 +74,8 @@ export default function ExampleHooks() {
     return `return ${msg}`;
   }, [msg]);
 
+  console.log('zzz');
+
   return (
     <div>
       {msg} <br />
@@ -73,7 +86,15 @@ export default function ExampleHooks() {
       <button onClick={alertNumber}>alertNumber</button>
       <br />
       <ChildComponent number={number} increaseNumber={increaseNumber} />
-      <ExampleContext.Consumer>{value => <span>{value}</span>}</ExampleContext.Consumer>
+      <ExampleContext.Consumer>
+        {value => (
+          <div>
+            {value.providerValue}
+            <button onClick={() => value.setProviderValue('changed provider value')}>changeProviderValue</button>
+          </div>
+        )}
+      </ExampleContext.Consumer>
+      <ChildComponent2 />
     </div>
   );
 }
