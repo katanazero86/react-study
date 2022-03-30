@@ -19,9 +19,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noUnusedParameters" : true,
-//    "noPropertyAccessFromIndexSignature" : false,
-//    "noUncheckedIndexedAccess": false,
+    // "noUnusedParameters" : true,
+    // "noPropertyAccessFromIndexSignature" : false,
+    // "noUncheckedIndexedAccess": false,
   },
   "include": [
     "src"

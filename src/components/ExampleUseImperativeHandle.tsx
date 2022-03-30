@@ -1,26 +1,40 @@
 import React, { useState, useImperativeHandle, useRef } from 'react';
 
-const PublicChildComponent = React.forwardRef(() => {
-  return <div>PublicChildComponent</div>;
+interface IPublicChildComponentHandle {
+  setNumberValue(targetNumber: number): void;
+  addNumberValue(): void;
+}
+
+const PublicChildComponent = React.forwardRef((props, ref) => {
+  const [number, setNumber] = useState(0);
+
+  // 마치 함수형 컴포넌트를 클래스처럼 public / private 하게 사용가능하게 해준다.
+  // 첫번째 인자 : ref
+  // 두번째 인자 : 외부로 공개할 함수(ref.current 로 접근)
+  // 세번째 인자 : 의존성 배열
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        setNumberValue: (targetNumber: number) => setNumber(targetNumber),
+        addNumberValue: () => setNumber(number + 1),
+      };
+    },
+    [number],
+  );
+
+  return <div>number is {number}</div>;
 });
 
 // ref 속성명을 사용하고 싶다면, React.forwardRef() 함수 사용하기
 export default function ExampleUseImperativeHandle() {
-  // App 컴포넌트에서 에서 ref 를 넘기지 않았다면 null 로 넘어와 에러가 일어나게 된다.
-
-  const [number, setNumber] = useState(0);
-  const targetRef = useRef(null);
+  const targetRef = useRef<IPublicChildComponentHandle>(null);
 
   return (
-    <div style={{ border: '1px dotted red', padding: '4px' }}>
-      <p>useImperativeHandle</p>
+    <div>
       <PublicChildComponent ref={targetRef} />
-      <button onClick={() => publicChildComponentRef.current && publicChildComponentRef.current.addNumberValue()}>
-        숫자 값 증가시키기
-      </button>
-      <button onClick={() => publicChildComponentRef.current && publicChildComponentRef.current.setNumberValue(0)}>
-        숫자 값 초기화
-      </button>
+      <button onClick={() => targetRef?.current?.addNumberValue()}>숫자 값 증가시키기</button>
+      <button onClick={() => targetRef?.current?.setNumberValue(0)}>숫자 값 초기화</button>
     </div>
   );
 }
