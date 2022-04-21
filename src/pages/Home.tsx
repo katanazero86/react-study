@@ -8,6 +8,8 @@ import { ExampleContext } from '../contexts/ExampleContext';
 import useMounted from '../customs/useMounted';
 import RefComponent from '../components/RefComponent';
 import ExampleUseImperativeHandle from '../components/ExampleUseImperativeHandle';
+import ExampleClassComponent2 from '../components/hoc/ExampleClassComponent2';
+import ExampleTestComponent from '../components/hoc/ExampleTestComponent';
 
 export default function Home() {
   const [hello, setHello] = useState('Hello World!');
@@ -35,6 +37,8 @@ export default function Home() {
       {mounted && <p>mounted</p>}
       <RefComponent />
       <ExampleUseImperativeHandle />
+      <ExampleClassComponent2 />
+      <ExampleTestComponent />
     </div>
   );
 }
